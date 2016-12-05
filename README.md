@@ -1,6 +1,5 @@
-# Advanced JavaScript concepts
+### Advanced JavaScript concepts
 These are my notes on advanced JS topics such as "this", prototype, closures and etc.
-
 Keyword `this`
 
 `this` is determined by how a junction is called ("execution context"). What `this` refers to can be determined using 4 rules (global, object/implicit, explicit, new).
@@ -47,7 +46,7 @@ function makePerson() {
 }
 console.log(person) // "Elie"
 ```
-@his is bad practice, never do this!
+This is bad practice, never do this!
 
 ### 2. Object/implicit `this`
 
@@ -98,7 +97,7 @@ But this is not what we wanted. How can we fix this? And that is where `call`, `
 
 With explicit binding we can choose what the value of `this` will be. So let's have a look at how we cal solve the problem that we have above with call.
 
-#### Call()
+#### `Call()
 
 Here we have the same nested object:
 ```
@@ -154,4 +153,6 @@ inga.sayHi.apply(elie) // Hi Elie
 inga.addNumbers(1, 2, 3, 4) // Inga just calculated 10
 inga.addNumbers.call(elie, 1, 2, 3, 4) // Elie just calculated 10
 inga.addNumbers.apply(elie, [1, 2, 3, 4]) // Elie just calculated 10
+```
+#### bind()
 
