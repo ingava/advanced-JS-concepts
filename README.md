@@ -225,3 +225,47 @@ So what does exactly the `new` keyword do? These are its main functions:
 3. It adds the implicit `return this` to the end of the function so that the object can be returned from the function
 4. It adds a property onto the empty object called "__proto__" which links the prototype property on the constructor function to the empty object (more on this later).
 
+### Multiple constructors
+
+So let's imagine that we have two similar constructor functions in our app:
+```
+function Car(make, model, year) {
+  this.make = make;
+  this.model = model;
+  this.year = year;
+  this.numWheels = 4;
+}
+
+function Motorcycle(make, model, year) {
+  this.make = make;
+  this.model = model;
+  this.year = year;
+  this.numWheels = 2
+}
+```
+This isnt't what we would call DRY code. So here is how we can refactor it combining the two constructor functions (we will have tu use either `call()` or `apply()`:
+```
+// The Car function looks the same
+function Car(make, model, year) {
+  this.make = make;
+  this.model = model;
+  this.year = year;
+  this.numWheels = 4;
+}
+// in the Motorcycle function we invoke the Car function to avoid code duplication
+// we also have to explicitly say what the 'this' value needs to be
+
+function Motorycle(make, model, year) {
+  Car.call(this, make, model, year);
+  this.numWheels = 2;
+}
+```
+This looks pretty neat. Here we set the value of `this` to be the object created from the Motorcycle constructor function rather than the one created from the Car function. 
+We can do the same thing with `apply()` and the code will look even more sleek: 
+```
+function Motorcycle(make, model, year) {
+  Car.apply(this, arguments);
+  this.numWheels = 2;
+}
+```
+The `arguments` keyword is a special keyword. It is a list of all of the arguments that are passed to a function. Of course, we could have written it likes this too: `Car.apply(this, [make, model, year])`. 
