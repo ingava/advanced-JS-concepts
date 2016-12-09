@@ -269,3 +269,85 @@ function Motorcycle(make, model, year) {
 }
 ```
 The `arguments` keyword is a special keyword. It is a list of all of the arguments that are passed to a function. Of course, we could have written it likes this too: `Car.apply(this, [make, model, year])`. 
+
+## Prototypes
+
+Every constructor function has a property on it called "prototype" which is an object. It can have properties and methods attached to it like any other object. This prototype object has a property on it called "constructor" which points back to the constructor function. Anytime an object is created using the `new` keyword, a property called "__proto__" gets created which links the object and the prototype proterty of the constructor function. This means that methods and properties attached to the prototype object are shared and accessible by any object that is created from that constructor function. Let's look at some code that illustrates this tricky relationship: 
+```
+// this is the constructor function
+
+function Person(name) {
+  this.name = name;
+}
+
+// this is an object created from the Person constructor
+
+var inga = new Person("Inga");
+
+// since we used the new keyword, we have established a link between the object and the prototype property
+// we can access that using __proto__
+
+inga.__proto__ === Person.prototype; // true
+```
+### Prototype chain
+
+The prototype property is an object which can have methods and properties placed on it. These methods and proeprties are shared and accessible by any object that is created from that constructor function when the `new` keyword is used. To continue with the previous code example: 
+```
+function Person(name) {
+  this.name = name;
+}
+var inga = new Person("Inga");
+
+Person.prorotype.isInstructor = true;
+
+inga.isInstructor; // true
+```
+We have access to the properties of the prototype through `__proto__`. Here we see the prototype chain at play.
+Prototype chain means that JavaScript will look at an object and see if the method or property you are looking for exists and if not it will go to that object's `__proto__` property and repeat until there is not another `__proto__` to look at. 
+
+How to use prototypes? 
+
+Let's say we have a code like this:
+``` 
+function Person(name) {
+  this.name = name;
+  this.sayHi = function() {
+    return "Hi " + this.name;
+  }
+}
+
+var inga = new Person("Inga");
+inga.sayHi(); // Hi Inga
+```
+This code works but it is inefficient because every time that the Person object is created we have to define this function on that object. So when we make 1 million objects from the constructor we are adding the `sayHi` property one million times. That is not very efficient. It would be nice if we could just define it once and have it accessible from every object created from the constructor. And that is exactly what placing methods on the prototype object lets us do. So let's refacture our code a little using prototype object: 
+```
+function Person(name) {
+  this.name = name;
+}
+
+Person.prototype.sayHi = function() {
+  return "Hi " + this.name;
+}
+
+var inga = new Person("Inga");
+inga.sayHi(); // Hi Inga
+```
+This code is much more effcient and makes use of best practices in OOP. We should always strive to place properties and methods that we want to share among all of our objects created from a constructor in the prototype as these properties and methods only need to be defined once and not redefined for every single object.
+
+## Closures
+
+A closure is a function that makes use of variables defined in outer functions that have previously returned. Here is an example of closure:
+```
+function outer() {
+  var data = "closures are ";
+  return function inner() {
+    var innerData = "awesome";
+    return data + innerData;
+  }
+}
+
+outer()() // "closures are awesome"
+```
+Usually local variables created inside a function are not accessible outside of it. But in closures, variables created in an outer function can be accessed inside of an inner function when the outer function has already returned. 
+A closure exists only when an inner function makes use of variables defined in an outer function that has returned. If the inner function does not make use of any of the external variables all we have is a nested function. 
+You would use a closure to create private variables and to isolate your logic. 
