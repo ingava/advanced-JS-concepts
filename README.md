@@ -1,8 +1,9 @@
 ## Advanced JavaScript concepts
 These are my notes on advanced JS topics such as "this", prototype, closures and etc.
-Keyword `this`
 
-`this` is determined by how a junction is called ("execution context"). What `this` refers to can be determined using 4 rules (global, object/implicit, explicit, new).
+## Keyword `this`
+
+`this` is determined by how a junction is called ("execution context"). What `this` refers to can be assessed using 4 rules (global, object/implicit, explicit, new).
 
 ### 1. Global `this`
 
@@ -69,7 +70,7 @@ var person = {
 person.sayHi() // "Hi Elie"
 person.determineContext() // true
 ```
-How about nested objects? Well, this is where the story gets a little complicated. Below we have a similar silly situation:
+How about nested objects? Well, this is where the story gets a little complicated. Below we have a similar situation:
 
 ```
 var person = {
@@ -91,11 +92,11 @@ var person = {
 }
 ```
 Remeber the rule "closest parent object"? So in this example `person.dog.sayHello()` will return `"Hello undefined` and `person.dog.determineContext` will be `false`. 
-But this is not what we wanted. How can we fix this? And that is where `call`, `apply` and `bind` methods come in. More on these below.
+But this is not what we wanted. How can we fix this? That is where `call()`, `apply()` and `bind()` methods come in. More on these below.
 
 ### 3. Explicit `this` (call, apply, bind)
 
-With explicit binding we can choose what the value of `this` will be. So let's have a look at how we cal solve the problem that we have above with call.
+With explicit binding we can choose what the value of `this` will be. So let's have a look at how we can solve the problem above with `call()`.
 
 #### `Call()`
 
@@ -188,8 +189,10 @@ inga.sayHi() // Hi Inga (1 second later)
 ```
 This situation is a good example when `call()` and `apply()` would be no good because we want to call the method at a later point in time with setTimeout, in our case 1 second later. 
 
+Note that ES6 version has fat arrow functions (=>) which solve the problem of `this` in some cases.
+
 ### 4. `new` and `this`
-When the `new` keyword is used the value of the keyword `this` is set to an empty object and returned from the function that is used with the `new` keyword. Here is an example (we'll comer `new` in more depth later): 
+When the `new` keyword is used the value of the keyword `this` is set to an empty object and returned from the function that is used with the `new` keyword. Here is an example (we'll cover `new` in more depth later): 
 ```
 function Person(firstName, lastName) {
   this.firstName = firstName;
@@ -201,7 +204,7 @@ inga.firstName // "Inga"
 inga.lastName // "Vaiciakauskaite"
 ```
 ## OOP and `new` keyword
-If we want to avoid repeating the same code, we need to have a way of declaring a blueprint and then using it to create new instances. Other programming languages have classes, but in JavaScript we use functions and objects to mimick classes and related behaviour (the new JavaScript version ES6 does have classes). Here is how we set a constructor function and then create an new object from it:
+If we want to avoid repeating the same code, we need to have a way of declaring a blueprint and then using it to create new instances. Other programming languages have classes, but in JavaScript we use functions and objects to mimick classes and related behaviour (the new JavaScript version ES6 does have classes). Here is how we set a constructor function and then create a new object from it:
 ```
 // constructor function
 
