@@ -3,7 +3,7 @@ These are my notes on advanced JS topics such as "this", prototype, closures and
 
 ## Keyword `this`
 
-`this` is determined by how a junction is called ("execution context"). What `this` refers to can be assessed using 4 rules (global, object/implicit, explicit, new).
+`this` is determined by how a function is called ("execution context"). What `this` refers to can be assessed using 4 rules (global, object/implicit, explicit, new).
 
 ### 1. Global `this`
 
