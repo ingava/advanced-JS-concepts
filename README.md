@@ -163,7 +163,7 @@ inga.addNumbers.apply(elie, [1, 2, 3, 4]) // Elie just calculated 10
 var elieCalc = inga.addNumbers.bind(elie, 1, 2) // function() {}...
 elieCalc(3, 4) // Elie just calculated 10
 ```
-Another common use case of `bind()` is to set the context of the keyword `this` for a function that will be called at a later point in time. Very commonly this happens when dealing with asynchornous code. Let's have a look at a more complex example:
+Another common use case of `bind()` is to set the context of the keyword `this` for a function that will be called at a later point in time. Very commonly this happens when dealing with asynchronous code. Let's have a look at a more complex example:
 ```
 var inga = {
   firstName = "Inga",
