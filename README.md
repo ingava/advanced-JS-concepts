@@ -22,6 +22,8 @@ function variablesInThis() {
   this.person = "Elie"
 }
 
+variablesInThis();
+
 console.log(person) // Elie
 
 whatIsThis() // window
