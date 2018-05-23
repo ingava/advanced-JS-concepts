@@ -127,7 +127,6 @@ But if we want `this` to point to the person object and not the dog object, we b
 person.dog.sayHello.call(person) // "Hello Elie"
 person.dog.determineContext.call(person) // true
 ```
-Mind that we are not invoking `sayHello` or `determineContext` methods as we don't have parenthesis there. We are only binding `this` to the person object.
 The `call()` method takes an infinite number of parameters. The first one is what we want the keyword `this` to refer to. In our case it is the `person` object. The first argument is also often called the `thisArg`. The other arguments are the ones that we want to pass to the method.
 
 #### `apply()`
